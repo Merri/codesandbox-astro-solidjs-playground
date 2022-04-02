@@ -1,7 +1,7 @@
 import { createSignal, onMount, For, Show } from 'solid-js'
 
-import { cp437ToString, sanitizeAsCp437, stringToCp437 } from './cp437'
-import { download } from './download'
+import { cp437ToString, sanitizeAsCp437, stringToCp437 } from '../../lib/cp437'
+import { download } from '../../lib/download'
 
 const DEFAULT_FILENAME = 'UNTITLED.ENG'
 
