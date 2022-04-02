@@ -1,5 +1,5 @@
 {
-  "name": "astro-024-solidjs-wip-for-something-else",
+  "name": "codesandbox-astro-solidjs-playground",
   "version": "1.0.0",
   "main": "src/pages/index.astro",
   "type": "module",
@@ -19,6 +19,10 @@
   "devDependencies": {
     "@types/node": "^17.0.21"
   },
-  "keywords": [],
-  "description": "Astro 0.24 + SolidJS + TS"
+  "keywords": [
+    "astro",
+    "settlers2",
+    "vite"
+  ],
+  "description": "Astro + SolidJS running on CodeSandbox with some subprojects developed into it."
 }
