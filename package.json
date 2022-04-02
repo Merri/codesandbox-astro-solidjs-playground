@@ -1,0 +1,24 @@
+{
+  "name": "astro-024-solidjs-wip-for-something-else",
+  "version": "1.0.0",
+  "main": "src/pages/index.astro",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/renderer-solid": "0.4.0",
+    "astro": "0.24.3",
+    "normalize.css": "8.0.1",
+    "prettier-plugin-astro": "0.0.12",
+    "sanitize.css": "13.0.0",
+    "solid-js": "1.3.13"
+  },
+  "scripts": {
+    "start": "astro dev",
+    "build": "astro build"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21"
+  },
+  "keywords": [],
+  "description": "Astro 0.24 + SolidJS + TS"
+}

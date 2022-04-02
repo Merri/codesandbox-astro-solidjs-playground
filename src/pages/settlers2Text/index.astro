@@ -1,0 +1,83 @@
+---
+import 'normalize.css'
+import 'sanitize.css'
+import 'sanitize.css/typography.css'
+
+import { Markdown } from 'astro/components';
+
+import { S2Text } from '../../components/s2text/S2Text.tsx'
+
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Settlers II Text</title>
+    <style global>
+html {
+  padding: 2rem;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+th {
+  background: white;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+}
+
+td:first-child {
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  vertical-align: top;
+  text-align: right;
+  width: 4rem;
+}
+
+textarea {
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  display: block;
+  max-width: 50rem;
+  vertical-align: top;
+  width: 100%;
+}
+
+li {
+  margin: 0.125rem 0;
+}
+
+li:empty::marker {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+button {
+  background: #def0f9;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
+  display: inline-flex;
+  line-height: 1.25rem;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+button:hover {
+  filter: brightness(1.0625);
+}
+
+button,
+input[type='file'] {
+  cursor: pointer;
+}
+    </style>
+  </head>
+  <body>
+    <S2Text client:load />
+  </body>
+</html>
