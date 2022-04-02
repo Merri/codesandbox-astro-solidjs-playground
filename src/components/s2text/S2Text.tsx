@@ -3,6 +3,8 @@ import { createSignal, onMount, For, Show } from 'solid-js'
 import { cp437ToString, sanitizeAsCp437, stringToCp437 } from './cp437'
 import { download } from './download'
 
+const DEFAULT_FILENAME = 'UNTITLED.ENG'
+
 /**
  * Read The Settlers II string tables: NAMES.ENG, NAMES.GER, ONGAME.ENG, ONGAME.GER etc.
  *
@@ -114,7 +116,7 @@ function setInitialStrings(strings: (null | string)[], key = 'strings') {
 }
 
 export function S2Text() {
-	const [filename, setFilename] = createSignal<string>('UNTITLED.ENG')
+	const [filename, setFilename] = createSignal<string>(DEFAULT_FILENAME)
 	const [errorMsg, setErrorMsg] = createSignal<string>('')
 	const [strings, setStrings] = createSignal<(null | string)[]>([])
 	const [originalStrings, setOriginalStrings] = createSignal<(null | string)[]>([])
@@ -123,7 +125,7 @@ export function S2Text() {
 		requestAnimationFrame(() => {
 			const strs = getInitialStrings()
 			const oStrs = getInitialStrings('original')
-			const [file = 'UNTITLED.ENG'] = getInitialStrings('filename')
+			const [file = DEFAULT_FILENAME] = getInitialStrings('filename')
 			if (strs.length) {
 				setStrings(strs)
 				setOriginalStrings(oStrs)
@@ -177,6 +179,23 @@ export function S2Text() {
 			<label>
 				ENG/GER file: <input type="file" oninput={oninput} />
 			</label>
+			<p>
+				<button
+					type="button"
+					onclick={(event) => {
+						event.preventDefault()
+						const empty = new Array(10).fill(null)
+						setStrings(empty.slice())
+						setOriginalStrings(empty.slice())
+						setInitialStrings(empty.slice())
+						setInitialStrings(empty.slice(), 'original')
+						setInitialStrings([DEFAULT_FILENAME], 'filename')
+						setFilename(DEFAULT_FILENAME)
+					}}
+				>
+					Create new empty file
+				</button>
+			</p>
 			<Show when={errorMsg() !== ''}>
 				<p>Loading file failed: {errorMsg()}</p>
 			</Show>
@@ -186,6 +205,9 @@ export function S2Text() {
 				</h2>
 				<p>Total string table size: {strings().length}</p>
 				<button type="button" onclick={downloadFile}>
+					<span aria-label="" role="img">
+						⬇️
+					</span>{' '}
 					Download
 				</button>
 				<table>
@@ -219,7 +241,9 @@ export function S2Text() {
 														})
 													}}
 												>
-													Add
+													<span aria-label="Add" role="img">
+														➕
+													</span>
 												</button>
 											}
 										>
@@ -260,8 +284,56 @@ export function S2Text() {
 						</For>
 					</tbody>
 				</table>
+				<p>
+					<button
+						type="button"
+						onclick={(event) => {
+							event.preventDefault()
+							const empty = new Array(10).fill(null)
+							const strs = strings().concat(empty)
+							const oStrs = originalStrings().concat(empty)
+							setStrings(strs)
+							setOriginalStrings(oStrs)
+							setInitialStrings(strs)
+							setInitialStrings(oStrs, 'original')
+						}}
+					>
+						<span aria-label="Add 10 more items" role="img">
+							➕ Add 10 more items
+						</span>
+					</button>
+					&nbsp;
+					<Show
+						when={
+							strings()
+								.slice(-10)
+								.every((item) => item == null) && strings().length > 10
+						}
+					>
+						<button
+							type="button"
+							onclick={(event) => {
+								event.preventDefault()
+								const strs = strings().slice(0, -10)
+								const oStrs = originalStrings().slice(0, -10)
+								setStrings(strs)
+								setOriginalStrings(oStrs)
+								setInitialStrings(strs)
+								setInitialStrings(oStrs, 'original')
+							}}
+						>
+							<span aria-label="Reduce by 10" role="img">
+								➖ Reduce by 10
+							</span>
+						</button>
+					</Show>
+				</p>
+				<hr />
 				<button type="button" onclick={downloadFile}>
-					Download
+					<span aria-label="" role="img">
+						⬇️
+					</span>{' '}
+					Download <code>{filename()}</code>
 				</button>
 			</Show>
 		</div>
