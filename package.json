@@ -14,7 +14,8 @@
 	},
 	"scripts": {
 		"start": "astro dev",
-		"build": "astro build"
+		"build": "astro build",
+		"dev": "astro dev --local-development"
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.21"
