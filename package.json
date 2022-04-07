@@ -18,8 +18,15 @@
 		"dev": "astro dev --local-development"
 	},
 	"devDependencies": {
-		"@types/node": "^17.0.21"
+		"@types/d3-color": "^3.0.2",
+		"@types/node": "^17.0.21",
+		"d3-color": "^3.1.0"
 	},
-	"keywords": ["astro", "settlers2", "solidjs", "vite"],
+	"keywords": [
+		"astro",
+		"settlers2",
+		"solidjs",
+		"vite"
+	],
 	"description": "Astro + SolidJS running on CodeSandbox with some subprojects developed into it."
 }
