@@ -3,4 +3,5 @@ export type PaletteItem = {
 	g: number
 	b: number
 	opacity?: number
+	description?: string
 }
