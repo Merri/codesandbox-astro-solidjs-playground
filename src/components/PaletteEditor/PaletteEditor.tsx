@@ -9,8 +9,9 @@ export function PaletteEditor() {
 	const [errorMsg, setErrorMsg] = createSignal<string>('')
 
 	async function oninput(event: InputEvent) {
-		if (!(event.currentTarget instanceof HTMLInputElement)) return
-		const file = event.currentTarget.files[0]
+		const target = event.currentTarget
+		if (!target || !(target instanceof HTMLInputElement)) return
+		const file = target.files?.[0]
 		if (!file) return console.log('No file')
 		try {
 			const arrayBuffer = await file.arrayBuffer()
@@ -25,7 +26,9 @@ export function PaletteEditor() {
 				setErrorMsg(`Unsupported file format`)
 			}
 		} catch (error) {
-			setErrorMsg(`[Critical error] ${error.message}`)
+			if (error instanceof Error) {
+				setErrorMsg(`[Critical error] ${error.message}`)
+			}
 		}
 	}
 
@@ -35,7 +38,7 @@ export function PaletteEditor() {
 				<button type="button">New group</button>
 			</div>
 			<label>
-				GIF file: <input type="file" oninput={oninput} />
+				GIF|IFF|LBM|ACO|ASE file: <input type="file" oninput={oninput} />
 			</label>
 			<Show when={errorMsg() !== ''}>
 				<p>Loading file failed: {errorMsg()}</p>

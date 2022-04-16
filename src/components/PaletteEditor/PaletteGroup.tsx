@@ -1,9 +1,9 @@
-import { For, Show } from 'solid-js'
+import { For } from 'solid-js'
 
 import { IndexedImagePaletteGroup } from '../../lib/fileFormat/gif'
 import { Palette } from './Palette'
 
-export function PaletteGroup({ group }: { group: IndexedImagePaletteGroup }) {
+export function PaletteGroup({ group }: { group: IndexedImagePaletteGroup | undefined }) {
 	function noop(event: Event) {
 		event.preventDefault()
 	}
@@ -13,15 +13,11 @@ export function PaletteGroup({ group }: { group: IndexedImagePaletteGroup }) {
 			<header>
 				<h3>Palette Group</h3>
 			</header>
-			<Show when={group.mainPaletteSize}>
-				<h4>Main palette</h4>
-				<Palette items={group.mainPalette} />
-			</Show>
-			<For each={group.images}>
-				{(image) => (
+			<For each={group?.palettes ?? []}>
+				{(palette, index) => (
 					<>
-						<h4>Palette</h4>
-						<Palette items={image.palette.slice(0, image.paletteSize)} />
+						<h4>{group?.mainPaletteIndex === index() ? 'Main palette' : 'Palette'}</h4>
+						<Palette items={palette.palette.slice(0, palette.numberOfColors ?? palette.palette.length)} />
 					</>
 				)}
 			</For>
