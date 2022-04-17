@@ -1,6 +1,11 @@
 import { createSignal, Show, Switch, Match } from 'solid-js'
+import { getAcoPaletteGroup } from '../../lib/fileFormat/aco'
+import { getAsePaletteGroup } from '../../lib/fileFormat/ase'
+import { getBmpPaletteGroup } from '../../lib/fileFormat/bmp'
 import { getGifPaletteGroup, IndexedImagePaletteGroup } from '../../lib/fileFormat/gif'
+import { getGplPaletteGroup } from '../../lib/fileFormat/gpl'
 import { getIffPaletteGroup } from '../../lib/fileFormat/iff'
+import { getPngPaletteGroup } from '../../lib/fileFormat/png'
 import { PaletteGroup } from './PaletteGroup'
 
 export function PaletteEditor() {
@@ -15,7 +20,14 @@ export function PaletteEditor() {
 		if (!file) return console.log('No file')
 		try {
 			const arrayBuffer = await file.arrayBuffer()
-			const result = getGifPaletteGroup(arrayBuffer) || getIffPaletteGroup(arrayBuffer)
+			const result =
+				getAcoPaletteGroup(arrayBuffer) ||
+				getAsePaletteGroup(arrayBuffer) ||
+				getBmpPaletteGroup(arrayBuffer) ||
+				getGifPaletteGroup(arrayBuffer) ||
+				getGplPaletteGroup(arrayBuffer) ||
+				getIffPaletteGroup(arrayBuffer) ||
+				getPngPaletteGroup(arrayBuffer)
 			if (result) {
 				setGroup(undefined)
 				requestAnimationFrame(() => {

@@ -4,4 +4,5 @@ export type PaletteItem = {
 	b: number
 	opacity?: number
 	description?: string
+	bmpReserved?: number
 }

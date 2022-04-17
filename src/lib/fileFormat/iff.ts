@@ -35,6 +35,7 @@ const XBMI = 0x58424d49
  * @todo Add support for decoding indexed image data (not only the palette)
  * @todo Support LIST and CAT https://wiki.amigaos.net/wiki/A_Quick_Introduction_to_IFF
  * @todo CMYK
+ * @todo CRNG & DRNG
  */
 export function getIffPaletteGroup(arrayBuffer: ArrayBuffer) {
 	const read = new DataView(arrayBuffer)

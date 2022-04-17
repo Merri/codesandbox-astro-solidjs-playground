@@ -1,4 +1,4 @@
-import { For } from 'solid-js'
+import { For, Show } from 'solid-js'
 
 import { IndexedImagePaletteGroup } from '../../lib/fileFormat/gif'
 import { Palette } from './Palette'
@@ -13,6 +13,11 @@ export function PaletteGroup({ group }: { group: IndexedImagePaletteGroup | unde
 			<header>
 				<h3>Palette Group</h3>
 			</header>
+			<Show when={group?.errors}>
+				<ul>
+					<For each={group?.errors ?? []}>{(error) => <li>{error}</li>}</For>
+				</ul>
+			</Show>
 			<For each={group?.palettes ?? []}>
 				{(palette, index) => (
 					<>
