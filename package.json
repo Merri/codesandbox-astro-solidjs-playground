@@ -1,4 +1,9 @@
 {
+	"engines": {
+		"npm": "use-yarn",
+		"pnpm": "use-yarn",
+		"yarn": ">=1.22.0"
+	},
 	"name": "codesandbox-astro-solidjs-playground",
 	"version": "1.0.0",
 	"main": "src/pages/index.astro",
