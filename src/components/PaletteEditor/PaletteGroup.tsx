@@ -26,6 +26,9 @@ export function PaletteGroup({ group }: { group: IndexedImagePaletteGroup | unde
 					</>
 				)}
 			</For>
+			<Show when={group?.palettes.length === 0}>
+				<p>File has no palette</p>
+			</Show>
 			<form onsubmit={noop}>
 				<p>
 					<button type="submit">Add palette</button>
