@@ -51,7 +51,14 @@ export interface IndexedPalette {
 	description?: string
 	numberOfColors?: number
 	palette: (PaletteItem | null)[]
+	/** Color that is entirely transparent */
 	transparentIndex?: number
+	/** Blackest color in palette */
+	blackIndex?: number
+	/** Whitest color in palette */
+	whiteIndex?: number
+	/** Legacy: color to display at edges of a CRT monitor image */
+	borderIndex?: number
 }
 
 export interface IndexedImagePaletteGroup {

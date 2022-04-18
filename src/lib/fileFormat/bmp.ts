@@ -66,20 +66,20 @@ export function getBmpPaletteGroup(arrayBuffer: ArrayBuffer) {
 	// legacy BMP files may report 0 as filesize
 	const fileLength = read.getUint32(2, true) || read.byteLength
 	if (read.byteLength !== fileLength) return false
-
+	
 	// expect reserved values to be always null
 	const reserved = read.getUint32(6, true)
 	if (reserved !== 0) return false
-
+	
 	// figure out actual header size (BMP has a pretty wild history)
 	const reportedHeaderSize = read.getUint32(14, true)
 	const sizes = bmpHeaderLookup.get(reportedHeaderSize)
 	if (sizes == null) return false
-
+	
 	const [headerSize, paletteSize, planesAndBppOffset] = sizes
 	const imageOffset = read.getUint32(10, true)
 	const paletteOffset = headerSize + 14
-	if (imageOffset <= paletteOffset) return false
+	if (imageOffset < paletteOffset) return false
 
 	const group: IndexedImagePaletteGroup = {
 		sourceFormat: 'BMP',
@@ -92,6 +92,10 @@ export function getBmpPaletteGroup(arrayBuffer: ArrayBuffer) {
 		indexedImages: [],
 		comments: [],
 		errors: [],
+	}
+
+	if (imageOffset === paletteOffset) {
+		return group
 	}
 
 	const compression = (headerSize === BmpHeaderSize.BitmapInfo && read.getUint32(30, true)) || 0

@@ -62,7 +62,7 @@ export function getIffPaletteGroup(arrayBuffer: ArrayBuffer) {
 		group.errors.push(`Unknown IFF image variant: "${header}" (supported: "ILBM" and "PBM ")`)
 	}
 
-	let pictureType: PictureTypeEnum = PictureTypeEnum.Default
+	let xbmiPictureType: PictureTypeEnum = PictureTypeEnum.Default
 	let nextImage = createEmptyImage()
 	let colorNames = new Map<number, string>()
 	const decoder = new TextDecoder('latin1')
@@ -118,7 +118,7 @@ export function getIffPaletteGroup(arrayBuffer: ArrayBuffer) {
 		} else if (chunkType === XBMI) {
 			if (chunkSize === 6) {
 				const type = read.getUint16(readPos + 8, false)
-				pictureType =
+				xbmiPictureType =
 					type >= 0 && type <= PictureTypeEnum.BW ? (type as PictureTypeEnum) : PictureTypeEnum.Default
 				const xDpi = read.getUint16(readPos + 10, false)
 				const yDpi = read.getUint16(readPos + 12, false)

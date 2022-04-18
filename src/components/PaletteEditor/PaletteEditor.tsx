@@ -5,7 +5,9 @@ import { getBmpPaletteGroup } from '../../lib/fileFormat/bmp'
 import { getGifPaletteGroup, IndexedImagePaletteGroup } from '../../lib/fileFormat/gif'
 import { getGplPaletteGroup } from '../../lib/fileFormat/gpl'
 import { getIffPaletteGroup } from '../../lib/fileFormat/iff'
+import { getJascPaletteGroup } from '../../lib/fileFormat/jasc'
 import { getPngPaletteGroup } from '../../lib/fileFormat/png'
+import { getRiffPaletteGroup } from '../../lib/fileFormat/riff'
 import { PaletteGroup } from './PaletteGroup'
 
 export function PaletteEditor() {
@@ -27,6 +29,8 @@ export function PaletteEditor() {
 				getGifPaletteGroup(arrayBuffer) ||
 				getGplPaletteGroup(arrayBuffer) ||
 				getIffPaletteGroup(arrayBuffer) ||
+				getJascPaletteGroup(arrayBuffer) ||
+				getRiffPaletteGroup(arrayBuffer) ||
 				getPngPaletteGroup(arrayBuffer)
 			if (result) {
 				setGroup(undefined)
