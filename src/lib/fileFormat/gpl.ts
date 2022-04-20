@@ -12,16 +12,13 @@ const GIMP_MINSIZE = 27
 const colorMatch = /^ *(\d+) +(\d+) +(\d+) *(?:\t(.*))?$/
 const nameMatch = /^Name:(.*)$/
 
-export function getGplPaletteGroup(arrayBuffer: ArrayBuffer) {
+export function getGplPaletteGroup(arrayBuffer: ArrayBuffer, lines: string[]) {
 	if (arrayBuffer.byteLength < GIMP_MINSIZE) return false
 
 	const view = new DataView(arrayBuffer)
 	if (view.getUint32(0, false) !== GIMP_IDENTIFIER_1) return false
 	if (view.getUint32(4, false) !== GIMP_IDENTIFIER_2) return false
 	if (view.getUint32(8, false) !== GIMP_IDENTIFIER_3) return false
-
-	const decoder = new TextDecoder('ascii')
-	const lines = decoder.decode(arrayBuffer).split('\n')
 
 	let name = lines.find((line) => nameMatch.test(line))
 	if (name) name = name.slice(5).trim()

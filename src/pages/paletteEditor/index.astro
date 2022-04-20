@@ -13,6 +13,18 @@ import { PaletteEditor } from '../../components/PaletteEditor/PaletteEditor.tsx'
     <title>Palette Editor</title>
     <style>
       body { padding: 2rem; }
+      :global(table) {
+        line-height: 1.5;
+      }
+      :global(td),
+      :global(th) {
+        padding: 0.5rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      :global(tbody tr:nth-child(odd)) {
+        background: rgba(0, 0, 0, 0.05)
+      }
     </style>
   </head>
   <body>

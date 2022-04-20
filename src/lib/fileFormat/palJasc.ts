@@ -6,7 +6,7 @@ const JASC_PALETTE = 0x2d50414c
 // 16 black colors
 const JASC_MINSIZE = 126
 
-export function getJascPaletteGroup(arrayBuffer: ArrayBuffer) {
+export function getJascPaletteGroup(arrayBuffer: ArrayBuffer, lines: string[]) {
 	if (arrayBuffer.byteLength < JASC_MINSIZE) return false
 
 	const view = new DataView(arrayBuffer)
@@ -26,8 +26,6 @@ export function getJascPaletteGroup(arrayBuffer: ArrayBuffer) {
 		errors: [],
 	}
 
-	const decoder = new TextDecoder('ascii')
-	const lines = decoder.decode(arrayBuffer).split('\r\n')
 	if (lines[1] !== '0100') {
 		group.errors.push(`Unknown identifier, espected 0100, got ${lines[1]}`)
 		return group

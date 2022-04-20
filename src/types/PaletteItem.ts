@@ -14,6 +14,7 @@ export type PaletteItem = {
 	g: number
 	b: number
 	opacity?: number
+	/** Typically this would be the color name. */
 	description?: string
 	/** @todo Research this reserved value. Is it used for alpha? Something else? Or is it just always 0xFF? */
 	bmpReserved?: number
@@ -29,4 +30,6 @@ export type PaletteItem = {
 		/** Used for color cycling. OS will avoid designating this color to logical palette as color changes often. */
 		reserved: boolean
 	}
+	/** VICE people might know what the dither values precisely mean, but they effect how colors behave in CRT mode */
+	vplDither?: number
 }
