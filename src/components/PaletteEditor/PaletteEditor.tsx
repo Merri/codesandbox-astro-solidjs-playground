@@ -1,5 +1,6 @@
 import { createSignal, Show, Switch, Match } from 'solid-js'
 import { getAcoPaletteGroup } from '../../lib/fileFormat/aco'
+import { getActPaletteGroup } from '../../lib/fileFormat/act'
 import { getAsePaletteGroup } from '../../lib/fileFormat/ase'
 import { getBmpPaletteGroup } from '../../lib/fileFormat/bmp'
 import { getGifPaletteGroup, IndexedImagePaletteGroup } from '../../lib/fileFormat/gif'
@@ -24,6 +25,7 @@ export function PaletteEditor() {
 		if (!file) return console.log('No file')
 		try {
 			const arrayBuffer = await file.arrayBuffer()
+			// Try binary file formats first, because they are ultra quick to check if they match expectations.
 			let result =
 				getAcoPaletteGroup(arrayBuffer) ||
 				getAsePaletteGroup(arrayBuffer) ||
@@ -31,7 +33,8 @@ export function PaletteEditor() {
 				getGifPaletteGroup(arrayBuffer) ||
 				getIffPaletteGroup(arrayBuffer) ||
 				getRiffPaletteGroup(arrayBuffer) ||
-				getPngPaletteGroup(arrayBuffer)
+				getPngPaletteGroup(arrayBuffer) ||
+				getActPaletteGroup(arrayBuffer)
 
 			// Did not match a binary format? See if it is a text file by checking null char in first 1 kilobyte
 			if (!result && new Uint8Array(arrayBuffer.slice(0, 1024)).every((byte) => byte !== 0)) {
@@ -99,6 +102,10 @@ export function PaletteEditor() {
 						<tr>
 							<td>ACO</td>
 							<td>Adobe Color Swatches</td>
+						</tr>
+						<tr>
+							<td>ACT</td>
+							<td>Adobe Color Table</td>
 						</tr>
 						<tr>
 							<td>ASE</td>
