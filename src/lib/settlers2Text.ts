@@ -32,6 +32,8 @@ export function readS2Text(arrayBuffer: ArrayBuffer): string | (null | string)[]
 	for (let pos = 10; pos < startOfStringData; pos += 4) {
 		/** String start position. Strings can be in any order. */
 		const strStart = view.getUint32(pos, true)
+		// Some fan made files give items value that is too big
+		if (strStart + 10 >= view.byteLength) break
 
 		if (strStart === 0) {
 			text.push(null)
